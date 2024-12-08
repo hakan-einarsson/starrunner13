@@ -29,7 +29,7 @@ const main = async () => {
   window.addEventListener('resize', () => {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    const scale = Math.min(screenWidth / gameWidth, screenHeight / gameHeight);
+    let scale = Math.min(screenWidth / gameWidth, screenHeight / gameHeight);
     if (scale > 2) {
       scale = 2;
     }
