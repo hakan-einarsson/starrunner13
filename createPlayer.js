@@ -144,8 +144,8 @@ const createPlayer = (canvasContext, sprite) => {
 
             if (this.velocity.x !== 0 && this.velocity.y !== 0) {
                 const magnitude = Math.sqrt(this.direction.x ** 2 + this.direction.y ** 2);
-                this.direction.x /= magnitude;
-                this.direction.y /= magnitude;
+                this.velocity.x /= magnitude;
+                this.velocity.y /= magnitude;
             }
             if (!this.paused) {
                 this.x += this.velocity.x * dt;
