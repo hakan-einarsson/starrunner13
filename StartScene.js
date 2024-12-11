@@ -1,7 +1,7 @@
 import { GameObjectClass, Sprite, Text, initKeys, keyPressed, initGamepad, gamepadPressed } from 'kontra';
 import createBackground from './createBackground';
 import { baseUnit } from './constants';
-import { getScore } from './storeToLocalStorage';
+import { getScore, getTopLevel } from './storeToLocalStorage';
 import floatingText from './floatingText';
 
 initKeys();
@@ -34,13 +34,23 @@ export default class StartPage extends GameObjectClass {
       y: baseUnit * 5.5,
     });
 
+    this.topLevel = new Text({
+      text: `Top Level: ${getTopLevel()}`,
+      font: `${baseUnit / 2}px Arial`,
+      color: 'white',
+      anchor: { x: 0.5, y: 0.5 },
+      x: baseUnit * 4.5,
+      y: baseUnit * 6.1
+    });
+
+
     this.subTitle = new Text({
       text: 'Start / Enter',
       font: `${baseUnit / 2}px Arial`,
       color: 'white',
       anchor: { x: 0.5, y: 0.5 },
       x: baseUnit * 4.5,
-      y: baseUnit * 6.5,
+      y: baseUnit * 7,
     });
   }
 
@@ -58,6 +68,7 @@ export default class StartPage extends GameObjectClass {
     this.background.render();
     this.title.render();
     this.highScore.render();
+    this.topLevel.render();
     this.subTitle.render();
     if (this.gameState.touchControls) {
       this.gameState.touchControls.render();

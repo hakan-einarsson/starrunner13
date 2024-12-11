@@ -6,7 +6,7 @@ import createEnergyBar from './createEnergyBar';
 import createPlayer from './createPlayer';
 import createGoalSprite from './createGoalSprite';
 import GridState from './GridState';
-import { getScore, saveScore } from './storeToLocalStorage';
+import { getScore, saveScore, getTopLevel, saveTopLevel } from './storeToLocalStorage';
 import getTitleText from './getTitleText';
 import TouchControls from './TouchControls';
 import { baseUnit } from './constants';
@@ -24,10 +24,11 @@ export default class GameState extends GameObjectClass {
     super(properties)
     this.initialScore = getScore();
     this.newHighScore = false;
+    this.newTopLevel = false;
     this.sprite = sprite;
     this.gameArea = gameArea;
     this.score = 0;
-    this.level = 160;
+    this.level = 0;
     this.gameOver = false;
     this.gameObjects = [];
     this.scale = scale;
@@ -103,6 +104,8 @@ export default class GameState extends GameObjectClass {
   startGame() {
     this.level = 1;
     this.gameArea.level = this.level;
+    this.newHighScore = false;
+    this.newTopLevel = false;
     this.gameArea.startLevel();
     this.gameArea.updateCurrentLevel(this.level);
     this.gameObjects = [];
@@ -141,6 +144,10 @@ export default class GameState extends GameObjectClass {
       if (this.score > Number(getScore())) {
         this.newHighScore = true;
         saveScore(this.score);
+      }
+      if (this.level > Number(getTopLevel())) {
+        saveTopLevel(this.level);
+        this.newTopLevel = true;
       }
       play('explosion');
     }

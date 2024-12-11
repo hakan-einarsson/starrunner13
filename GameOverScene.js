@@ -43,13 +43,29 @@ export default class StartPage extends GameObjectClass {
       }
     });
 
+    this.levelText = new Text({
+      text: 'Level: ' + this.gameState.level,
+      font: '20px Arial',
+      color: 'white',
+      anchor: { x: 0.5, y: 0.5 },
+      x: baseUnit * 4,
+      y: baseUnit * 4.2,
+      update: function (gameState) {
+        if (gameState.newTopLevel) {
+          this.text = 'New top level: ' + gameState.level;
+        } else {
+          this.text = 'Level: ' + gameState.level;
+        }
+      }
+    });
+
     this.subTitle = new Text({
       text: 'Press [Enter / Start] to try again',
       font: '20px Arial',
       color: 'white',
       anchor: { x: 0.5, y: 0.5 },
       x: baseUnit * 4,
-      y: baseUnit * 4.2,
+      y: baseUnit * 5.4,
     });
   }
 
@@ -58,6 +74,7 @@ export default class StartPage extends GameObjectClass {
   update(dt, score) {
     this.scoreText.score = score;
     this.scoreText.update();
+    this.levelText.update(this.gameState);
     if (keyPressed('enter') || gamepadPressed('start') || (this.isMobile && this.gameState.touchControls.getButtonPressed('start'))) {
       this.gameState.playerSprite.paused = false;
       this.gameState.playerSprite.buttonWasPressedMap.start = true;
@@ -70,6 +87,7 @@ export default class StartPage extends GameObjectClass {
     this.title.render();
     this.subTitle.render();
     this.scoreText.render();
+    this.levelText.render();
     if (this.gameState.touchControls) {
       this.gameState.touchControls.render();
     }

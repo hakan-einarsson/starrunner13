@@ -1,4 +1,3 @@
-// Function to save score to local storage
 const saveScore = (score) => {
     localStorage.setItem('gameScore', score);
 }
@@ -7,6 +6,12 @@ const getScore = () => {
     return localStorage.getItem('gameScore') || 0;
 }
 
-// Example usage
+const saveTopLevel = (level) => {
+    localStorage.setItem('topLevel', level);
+}
 
-export { saveScore, getScore };
+const getTopLevel = () => {
+    return localStorage.getItem('topLevel') || 0;
+}
+
+export { saveScore, getScore, saveTopLevel, getTopLevel };
